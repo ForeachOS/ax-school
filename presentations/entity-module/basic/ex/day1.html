@@ -4,76 +4,56 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>reveal.js</title>
+    <title>Across School</title>
 
-    <link rel="stylesheet" href="/css/reveal.css">
-    <link rel="stylesheet" href="/css/theme/black.css">
+    <link rel="stylesheet" href="/ax-school/css/reveal.css">
+    <link rel="stylesheet" href="/ax-school/css/theme/black.css">
 
     <!-- Theme used for syntax highlighting of code -->
-    <link rel="stylesheet" href="/lib/css/zenburn.css">
+    <link rel="stylesheet" href="/ax-school/lib/css/zenburn.css">
 
     <!-- Printing and PDF exports -->
     <script>
-        var link = document.createElement('link');
+        var link = document.createElement( 'link' );
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = window.location.search.match(/print-pdf/gi) ? '/css/print/pdf.css' : '/css/print/paper.css';
-        document.getElementsByTagName('head')[0].appendChild(link);
+        link.href = window.location.search.match( /print-pdf/gi ) ? '/ax-school/css/print/pdf.css' : '/ax-school/css/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
     </script>
 </head>
 <body>
 <div class="reveal">
     <div class="slides">
-        <section>
-            <h1>Op de agenda</h1>
-            <ol>
-                <li>Wat is EntityModule?</li>
-                <li>Hands-on: Across Studio ticketverkoop</li>
-                <li>What's next</li>
-            </ol>
-        </section>
-        <section>
-            <h2>Wat is EntityModule?</h2>
-            <p>Module voor het<br/>
-                automatisch genereren van een uniforme beheersinterface <em>(voor bepaalde entities)</em><br/>
-                op basis van metadata <em>(van die entities)</em>.
-            </p>
-
-            <div class="center">
-                <strong>entity</strong><br/>
-                <strong>metadata</strong><br/>
-                <strong>UI generatie</strong>
-            </div>
-        </section>
-        <section data-external-replace="ex/01.html"></section>
+        <section data-external-replace="01.html"></section>
     </div>
 </div>
 
-<script src="/lib/js/head.min.js"></script>
-<script src="/js/reveal.js"></script>
+<script src="/ax-school/lib/js/head.min.js"></script>
+<script src="/ax-school/js/reveal.js"></script>
 
 <script>
     // More info about config & dependencies:
     // - https://github.com/hakimel/reveal.js#configuration
     // - https://github.com/hakimel/reveal.js#dependencies
-    Reveal.initialize({
-        dependencies: [
-            {src: '/plugin/markdown/marked.js'},
-            {src: '/plugin/markdown/markdown.js'},
-            {src: '/plugin/notes/notes.js', async: true},
-            {
-                src: '/plugin/highlight/highlight.js', async: true, callback: function () {
-                    hljs.initHighlightingOnLoad();
-                }
-            },
-            {
-                src: '/plugin/external/external.js',
-                condition: function () {
-                    return !!document.querySelector('[data-external],[data-external-replace]');
-                }
-            }
-        ]
-    });
+    Reveal.initialize( {
+                           dependencies: [
+                               {src: '/ax-school/plugin/markdown/marked.js'},
+                               {src: '/ax-school/plugin/markdown/markdown.js'},
+                               {src: '/ax-school/plugin/menu/menu.js'},
+                               {src: '/ax-school/plugin/notes/notes.js', async: true},
+                               {
+                                   src: '/ax-school/plugin/highlight/highlight.js', async: true, callback: function () {
+                                       hljs.initHighlightingOnLoad();
+                                   }
+                               },
+                               {
+                                   src: '/ax-school/plugin/external/external.js',
+                                   condition: function () {
+                                       return !!document.querySelector( '[data-external],[data-external-replace]' );
+                                   }
+                               }
+                           ]
+                       } );
 </script>
 </body>
 </html>

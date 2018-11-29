@@ -1,0 +1,1 @@
+Dummy folder for absolute static resource including on Github pages.
