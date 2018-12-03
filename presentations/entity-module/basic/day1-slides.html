@@ -1,0 +1,360 @@
+<section>
+    <h1>Op de agenda</h1>
+    <ol>
+        <li>Wat is EntityModule?</li>
+        <li>Hands-on: Across Studio ticketverkoop</li>
+        <li>What's coming on day 2?</li>
+    </ol>
+</section>
+
+<!-- THEORY -->
+<section>
+    <h2>Wat is EntityModule?</h2>
+    <p class="fragment">Module voor het<br/>
+        automatisch genereren van een uniforme beheersinterface <em class="fragment">(voor bepaalde entities)</em><br/>
+        op basis van metadata <em class="fragment">(van die entities)</em>
+    </p>
+
+    <div class="center">
+        <strong class="fragment">entity</strong><br/>
+        <strong class="fragment">metadata</strong><br/>
+        <strong class="fragment">UI generatie</strong>
+    </div>
+</section>
+<section>
+    <h2>Wat is een entity?</h2>
+    <p>
+        An entity is a lightweight persistence domain object. Typically, an entity represents a table in a relational database, and each
+        entity instance corresponds to a row in that table.
+
+        => persistence (CRUD UI)
+    </p>
+</section>
+<section>
+    <h2>Wat is een entity?</h2>
+    <p>
+        EntityModule laat toe om eender welk object als een entity te configureren.
+
+        Door te configureren hoe:
+        Een nieuwe instantie aangemaakt kan worden
+        De identiteit van een instantie te bepalen
+        Een bestaande instantie opgehaald kan worden
+        Een instantie te presenteren
+        Een instantie op te slaan of te verwijderen
+
+        = entity metadata
+    </p>
+</section>
+<section>
+    <h2>Entity metadata</h2>
+    <table>
+        <tr>
+            <td>
+                Entity model
+                Nieuwe instantie aanmaken
+                Identiteit bepalen
+                Instantie ophalen
+                Opslaan of verwijderen
+
+                UserRepository.findOne()
+                UserRepository.save()
+
+            </td>
+            <td>
+                Property metadata
+                Presentatie
+
+                User {
+                String name;
+                }
+
+            </td>
+        </tr>
+    </table>
+</section>
+<section>
+    <h2>Genereren van een UI</h2>
+    <table>
+        <tr>
+            <td>
+                Entity views
+
+                Eén of meerdere entity instanties.
+
+
+                ≈ webpagina’s
+
+
+            </td>
+            <td>
+                Property controls
+
+                Eén of meerdere properties,
+                van een instantie.
+
+                ≈ componenten (bvb. form controls)
+            </td>
+        </tr>
+    </table>
+</section>
+<section>
+    TODO: overview image
+</section>
+
+<!-- HANDSON -->
+<section>
+    <h1>Scenario:
+        Across Studio ticket verkoop
+    </h1>
+</section>
+<section>
+    <h2>Across Studio ticket verkoop</h2>
+    https://github.com/ForeachOS/ax-school-entity-module-devs-basic
+
+    Branch: basic-start
+
+    Start:
+    BookingApplication
+    MusicalApiApplication
+
+    Opgepast: working directory = module working directory
+</section>
+
+<!-- HANDSON: ex 1 -->
+<section>
+    <h2>ViewElement</h2>
+    ViewElement infrastructuur = Across Web
+
+    Een ViewElement is een web component.
+    Meestal HTML output, default rendering via Thymeleaf.
+
+    Basis implementaties:
+
+    TextViewElement
+    NodeViewElement
+    ContainerViewElement
+
+    Uitgebreider:
+    BootstrapUiModule: Bootstrap 3 componenten.
+</section>
+<section>
+    <h2>ViewElementBuilder</h2>
+    Genereert een ViewElement voor een bepaalde ViewElementBuilderContext.
+
+    ViewElementBuilderContext
+    Model om typische attributen door te geven, en vanuit de ViewElementBuilder toegang te geven tot algemene features.
+
+    Builder implementaties: BootstrapUiBuilders
+</section>
+<section data-external-replace="ex/01.html"></section>
+
+<!-- HANDSON: ex 2 -->
+<section>
+    <h2>EntityViewElementBuilderService</h2>
+    Genereert een ViewElementBuilder voor een EntityPropertyDescriptor en een ViewElementMode.
+
+    EntityPropertyDescriptor
+    = metadata van één property
+
+    ViewElementMode
+    = “mode” voor dewelke een control gegenereerd moet worden
+
+    EntityViewElementBatch
+    Genereren van controls voor een selectie van properties en een ViewElementMode.
+    Aanmaken via de EntityViewElementBuilderHelper.
+</section>
+<section>
+    <h2>Default ViewElementModes</h2>
+    VALUE:  		Value van de property (bvb John Doe).
+    LABEL:			Label van de property (bvb Username)
+    CONTROL:		Control voor het updaten van de value (bvb een textbox).
+    FORM_READ:		Typisch combinatie van LABEL en VALUE.
+    FORM_WRITE: 		Typisch combinatie van LABEL en CONTROL.
+
+    LIST_LABEL:		Label van de property voor in een tabel overzicht (kolom header)
+    LIST_VALUE:		Value van de property voor in een tabel overzicht (cell value).
+    LIST_CONTROL:		Control voor het inline update van de value in een tabel (niet gebruikt).
+
+    FILTER_CONTROL:	Control voor het selecteren van een value in een filter.
+</section>
+<section data-external-replace="ex/02.html"></section>
+
+<!-- HANDSON: ex 3 -->
+<section>
+    <h2>Admin Web en entity views</h2>
+    AdminWebModule actief:
+    Ondersteuning voor CRUD entity views.
+
+    AdminWebModule + development mode:
+    Developer tools voor metadata browsing.
+</section>
+<section>
+    <h2>Metadata configureren: EntityConfigurer</h2>
+    = component om de geregistreerde entity configuraties aan te passen
+
+    Een module kan meerdere EntityConfigurer beans voorzien.
+    Ze worden automatisch toegepast - in volgorde - na de automatische registratie van entities.
+    Meerdere EntityConfigurers kunnen dezelfde onderdelen aanpassen (last one wins).
+</section>
+<section data-external-replace="ex/03.html"></section>
+
+<!-- HANDSON: ex 4 -->
+<section>
+    <h2>Associaties</h2>
+    Een relatie tussen 2 EntityConfigurations = EntityAssociation
+
+    Heeft een unieke naam.
+    Is een onderdeel van de “source” EntityConfiguration.
+    Net als EntityConfiguration zijn er automatische default views mogelijk.
+
+    Types associaties (default views): LINKED (default), EMBEDDED
+</section>
+<section data-external-replace="ex/04.html"></section>
+
+<!-- HANDSON: ex 5 -->
+<section>
+    <h2>Valideren van entities</h2>
+    Default validatie op views:
+    Spring Hibernate validator (annotation based validation).
+    -> DefaultValidationViewProcessor
+
+    Custom validator:
+    Validator.class attribuut op EntityConfiguration
+
+    Automatische registratie koppelt custom Validator bean voor een entity type wanneer:
+    De implementatie geldig is voor dat entity type (supports(type) is true)
+    De validator bean in dezelfde Across module zit als die waar de Spring Data repository is
+</section>
+<section data-external-replace="ex/05.html"></section>
+
+<!-- HANDSON: ex 6 -->
+<section>
+    <h2>Custom properties</h2>
+    Het is mogelijk om een nieuwe property te definiëren als EntityPropertyDescriptor.
+
+    Minimale configuratie:
+    Property naam
+    Property type (class of TypeDescriptor)
+    EntityPropertyController
+    valueFetcher implementatie (= ophalen van de value van die property)
+</section>
+<section data-external-replace="ex/06.html"></section>
+
+<!-- HANDSON: ex 7, ex 8 -->
+<section>
+    <h2>EntityQuery & EQL</h2>
+    EntityModule gebruikt een abstractie laag voor het ophalen van (zoeken naar) entities.
+
+    EntityQuery
+    Specification-achtig object die een query opdracht bevat.
+
+    EntityQuery Language (EQL)
+    SQL-achtige syntax die omgezet wordt naar een EntityQuery.
+    Voorbeeld: name = ‘John Doe’ order by name ASC
+
+    EntityQueryExecutor
+    Voert een EntityQuery uit.
+    Default implementaties: JPA, QueryDsl, Collection.
+</section>
+<section>
+    <h2>EntityQuery & EQL</h2>
+    EQL filtering kan toegepast worden op list views.
+
+    EntityQuery gebruikt de EntityPropertyRegistry metadata.
+
+    EQL ondersteuning kan per entity uitgebreid worden:
+    Custom properties
+    Custom functions
+</section>
+<section data-markdown="ex/07.md" data-separator-vertical="^----"></section>
+<section data-markdown="ex/08.md" data-separator-vertical="^----"></section>
+
+<!-- HANDSON: ex 9 -->
+<section>
+    <h2>Custom & default views</h2>
+    Entity view -> EntityViewFactory
+    Configuratie meestal via de EntityViewFactoryBuilder.
+
+    Default views
+    listView
+    detailView
+    createFormView
+    updateFormView
+    deleteFormView
+
+    View templates
+    view (= blanco)
+    formView
+    listView
+</section>
+<section data-markdown="ex/09.md" data-separator-vertical="^----"></section>
+
+<!-- HANDSON: ex 10, ex 11 -->
+<section>
+    <h2>Custom properties</h2>
+    2 type properties:
+    Native properties bestaan in Java op de Entity type (name)
+    Extension properties bestaan enkel als EntityPropertyDescriptor (seats)
+
+    Values van extension properties kunnen nooit op de entity instance rechtstreeks gezet worden.
+
+    EntityPropertiesBinder
+    Tussenliggende, abstracte, datastructuur die een EntityPropertyRegistry gebruikt om property values op te halen voor een entity, of toe te passen op een entity.
+
+    Maakt gebruik van de EntityPropertyController voor al zijn operaties.
+</section>
+<section>
+    <h2>EntityViewCommand</h2>
+    Het command object voor een entity view formulier:
+    Bevat de DTO van de entity
+    Bevat een EntityPropertiesBinder voor diezelfde DTO
+    Bevat mogelijke uitbreidingen (extensions) om custom form binding op te doen
+
+    In een formulier zijn er 3 manieren om een property te verwerken:
+    DIRECT: enkel voor native properties, rechtstreeks op de target DTO
+    EXTENSION: via de EntityPropertiesBinder
+    MANUAL: manueel afgehandeld
+
+    Kan per property gezet worden via het EntityPropertyHandlingType.class attribuut.
+    Heeft impact op de gegenereerde control naam voor een form control, en dus op welk data object de value vanuit een formulier gezet wordt.
+</section>
+<section>
+    <h2>EntityViewCommand binding</h2>
+    EntityViewCommand is het form binding object (cmd)
+    De DTO van de entity instantie is beschikbaar onder EntityViewCommand.getEntity()
+    DIRECT property handling voor “name”:
+    entity.name => cmd.getEntity().setName( x )
+    De EntityPropertiesBinder is beschikbaar onder EntityViewCommand.getProperties()
+    EXTENSION property handling voor “name”:
+    properties[name].value => cmd.getProperties().get(“name”).setValue( x )
+
+    Voordelen EntityPropertiesBinder:
+    Intermedia path creation & initialisatie nieuwe values
+    Collection binding
+    Gebruik van de EntityPropertyController voor alle handelingen
+</section>
+<section>
+    <h2>EntityPropertyController</h2>
+    Kan gebruikt worden om te werken met de specifieke property value:
+
+    fetchValue() = property value ophalen
+    createValue() = nieuwe property value initializeren
+    validate() = valideren van de property value
+    applyValue() = property value toepassen op de entity
+    save() = property value definitief opslaan
+
+    Verschil tussen applyValue() en save():
+    applyValue() = kan meermaals uitgevoerd worden tijdens één request en kan impliciet uitgevoerd worden, normaal voor validatie
+    save() = kan enkel expliciet uitgevoerd worden, meestal na succesvolle validatie
+
+    Controller order kan belangrijk zijn voor validate/applyValue/save (voor of na de entity zelf).
+</section>
+<section data-markdown="ex/10.md" data-separator-vertical="^----"></section>
+<section data-markdown="ex/11.md" data-separator-vertical="^----"></section>
+
+<!-- HANDSON: custom property controls -->
+<section>
+    <h2>Custom property controls</h2>
+</section>
+<section data-external-replace="ex/18.html"></section>
+<section data-external-replace="ex/22.html"></section>
