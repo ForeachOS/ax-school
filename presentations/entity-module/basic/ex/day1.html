@@ -24,10 +24,37 @@
 <body>
 <div class="reveal">
     <div class="slides">
+        <section data-markdown>
+            <script type="text/template">
+                ### Oplossing
+
+                ```java
+                entities.withType(Booking.class)
+                .properties(
+                props -> props.property("name")
+                .attribute(EntityQueryConditionTranslator.class, EntityQueryConditionTranslator.ignoreCase())
+                )
+                .listView(
+                lvb -> lvb.entityQueryFilter(
+                eqf -> eqf.showProperties("ticketType", "name")
+                .multiValue("ticketType")
+                )
+                );
+                ```
+            </script>
+        </section>
         <section data-external-replace="01.html"></section>
         <section data-external-replace="02.html"></section>
         <section data-external-replace="03.html"></section>
         <section data-external-replace="04.html"></section>
+        <section data-external-replace="05.html"></section>
+        <section data-external-replace="06.html"></section>
+        <section data-markdown="07.md" data-separator-vertical="^----"></section>
+        <section data-external-replace="08.html"></section>
+        <section data-external-replace="09.html"></section>
+        <section data-external-replace="10.html"></section>
+        <section data-external-replace="11.html"></section>
+        <section data-external-replace="12.html"></section>
     </div>
 </div>
 
@@ -40,6 +67,7 @@
     // - https://github.com/hakimel/reveal.js#dependencies
     Reveal.initialize( {
                            dependencies: [
+                               { src: '/ax-school/lib/js/classList.js', condition: function() { return !document.body.classList; } },
                                {src: '/ax-school/plugin/markdown/marked.js'},
                                {src: '/ax-school/plugin/markdown/markdown.js'},
                                {src: '/ax-school/plugin/menu/menu.js'},
