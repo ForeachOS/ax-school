@@ -7,7 +7,7 @@
     <title>Across School</title>
 
     <link rel="stylesheet" href="/ax-school/css/reveal.css">
-    <link rel="stylesheet" href="/ax-school/css/theme/black.css">
+    <link rel="stylesheet" href="/ax-school/css/theme/across.css">
 
     <!-- Theme used for syntax highlighting of code -->
     <link rel="stylesheet" href="/ax-school/lib/css/zenburn.css">
@@ -24,42 +24,21 @@
 <body>
 <div class="reveal">
     <div class="slides">
-        <section>
-            <h1>Op de agenda</h1>
-            <ol>
-                <li>Wat is EntityModule?</li>
-                <li>Hands-on: Across Studio ticketverkoop</li>
-                <li>What's next</li>
-            </ol>
-        </section>
-        <section>
-            <h2>Wat is EntityModule?</h2>
-            <p class="fragment">Module voor het<br/>
-                automatisch genereren van een uniforme beheersinterface <em class="fragment">(voor bepaalde entities)</em><br/>
-                op basis van metadata <em class="fragment">(van die entities)</em>
-            </p>
-
-            <div class="center">
-                <strong class="fragment">entity</strong><br/>
-                <strong class="fragment">metadata</strong><br/>
-                <strong class="fragment">UI generatie</strong>
-            </div>
-        </section>
-        <section data-external-replace="ex/11.html"></section>
-        <section data-external-replace="ex/12.html"></section>
-        <section data-external-replace="ex/13.html"></section>
-        <section data-external-replace="ex/14.html"></section>
-        <section data-external-replace="ex/15.html"></section>
-        <section data-external-replace="ex/16.html"></section>
-        <section data-external-replace="ex/17.html"></section>
-        <section data-external-replace="ex/18.html"></section>
-        <section data-external-replace="ex/19.html"></section>
-        <section data-external-replace="ex/20.html"></section>
-        <section data-external-replace="ex/21.html"></section>
-        <section data-external-replace="ex/22.html"></section>
-        <section data-external-replace="ex/23.html"></section>
-        <section data-external-replace="ex/24.html"></section>
-        <section data-external-replace="ex/25.html"></section>
+        <section data-external-replace="11.html"></section>
+        <section data-external-replace="12.html"></section>
+        <section data-external-replace="13.html"></section>
+        <section data-external-replace="14.html"></section>
+        <section data-external-replace="15.html"></section>
+        <section data-external-replace="16.html"></section>
+        <section data-external-replace="17.html"></section>
+        <section data-external-replace="18.html"></section>
+        <section data-external-replace="19.html"></section>
+        <section data-external-replace="20.html"></section>
+        <section data-external-replace="21.html"></section>
+        <section data-external-replace="22.html"></section>
+        <section data-external-replace="23.html"></section>
+        <section data-external-replace="24.html"></section>
+        <section data-external-replace="25.html"></section>
     </div>
 </div>
 
@@ -71,16 +50,11 @@
     // - https://github.com/hakimel/reveal.js#configuration
     // - https://github.com/hakimel/reveal.js#dependencies
     Reveal.initialize( {
-                           width: '100%',
-                           height: '100%',
-                           margin: 0.1,
-                           minScale: 1,
-                           maxScale: 1,
                            dependencies: [
                                {src: '/ax-school/plugin/markdown/marked.js'},
                                {src: '/ax-school/plugin/markdown/markdown.js'},
-                               {src: '/ax-school/plugin/notes/notes.js', async: true},
                                {src: '/ax-school/plugin/menu/menu.js'},
+                               {src: '/ax-school/plugin/notes/notes.js', async: true},
                                {
                                    src: '/ax-school/plugin/highlight/highlight.js', async: true, callback: function () {
                                        hljs.initHighlightingOnLoad();
