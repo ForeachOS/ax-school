@@ -1,0 +1,175 @@
+<section>
+    <h2>Wat is EntityModule?</h2>
+    <p class="fragment fade-in-then-semi-out">
+        Module voor het<br/>
+        automatisch genereren van een interface<br/>
+        om entities te beheren,<br/>
+        op basis van metadata.
+    </p>
+    <div class="center">
+        <strong class="fragment">entity</strong><br/>
+        <strong class="fragment">metadata</strong><br/>
+        <strong class="fragment">UI generatie</strong>
+    </div>
+</section>
+<section data-transition="fade-out">
+    <h2>Wat is een entity?</h2>
+    <blockquote class="fragment">
+        An entity is a lightweight persistence domain object. Typically, an entity represents a table in a relational database, and each
+        entity instance corresponds to a row in that table.
+    </blockquote>
+    <strong class="fragment">
+        <u>persistence</u> (CRUD UI)
+    </strong>
+</section>
+<section data-transition="fast fade-out">
+    <h2>Een entity voor EntityModule?</h2>
+    <p class="fragment">
+        EntityModule laat toe om eender welk object als een entity te configureren.
+    </p>
+    <p class="fragment">
+        Door te configureren hoe:</p>
+    <ul>
+        <li class="fragment">Een nieuwe instantie aan te maken</li>
+        <li class="fragment">De identiteit van een instantie te bepalen</li>
+        <li class="fragment">Een bestaande instantie op te halen</li>
+        <li class="fragment">Een instantie te presenteren</li>
+        <li class="fragment">Een instantie op te slaan of te verwijderen</li>
+
+    </ul>
+    <p class="fragment"><strong>= <u>entity metadata</u></strong></p>
+</section>
+<section>
+    <h2>Entity metadata</h2>
+    <table>
+        <thead>
+        <tr>
+            <th class="fragment">Entity model</th>
+            <th class="fragment">Property metadata</th>
+        </tr>
+        </thead>
+        <tbody class="fragment">
+        <tr>
+            <td>
+                <span>Nieuwe instantie aanmaken</span><br/>
+                <span class="fragment">Identiteit bepalen</span><br/>
+                <span class="fragment">Instantie ophalen</span><br/>
+                <span class="fragment">Opslaan of verwijderen</span>
+            </td>
+            <td>
+                <span class="fragment">Presentatie</span><br/>
+            </td>
+        </tr>
+        <tr>
+            <td class="fragment">
+                <br/>
+                <code>
+                    <small>
+                        UserRepository.findOne()<br/>
+                        UserRepository.save()
+                    </small>
+                </code>
+            </td>
+            <td class="fragment">
+                <br/>
+                <code>
+                    <small>
+                        User {<br/>
+                        &nbsp; String name;<br/>
+                        }
+                    </small>
+                </code>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+<section>
+    <h2>Genereren van een UI</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Entity views</th>
+            <th>Property controls</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="fragment">
+            <td>
+                Eén of meerdere entity instanties.
+            </td>
+            <td class="fragment">
+                Eén of meerdere properties,<br/>
+                van een instantie.
+            </td>
+        </tr>
+        <tr class="fragment">
+            <td>≈ webpagina’s</td>
+            <td>≈ componenten (bvb. form controls)</td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+<section>
+    <h2>Building blocks</h2>
+
+    <table class="fragment">
+        <tbody>
+        <tr>
+            <td>Property metadata</td>
+            <td>
+                <small>
+                    <code>EntityPropertyRegistry</code><br/>
+                    <code>EntityPropertyDescriptor</code>
+                </small>
+            </td>
+        </tr>
+        <tr>
+            <td>Entity model</td>
+            <td>
+                <small>
+                    <code>EntityModel</code><br/>
+                    <code>EntityFactory</code>
+                </small>
+            </td>
+        </tr>
+        <tr>
+            <td>Property controls</td>
+            <td>
+                <small>
+                    <code>ViewElement</code><br/>
+                    <code>ViewElementBuilder</code>
+                </small>
+            </td>
+        </tr>
+        <tr>
+            <td>Entity views</td>
+            <td>
+                <small>
+                    <code>EntityViewFactory</code><br/>
+                    <code>EntityViewProcessor</code>
+                </small>
+            </td>
+        </tr>
+        <tr class="fragment" style="color: yellow">
+            <td>Entities zoeken</td>
+            <td>
+                <small>
+                    <code>EntityQueryExecutor</code>
+                </small>
+            </td>
+        </tr>
+        <tr class="fragment" style="color: yellow">
+            <td>Permissies</td>
+            <td>
+                <small>
+                    <code>AllowableAction</code>
+                </small>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <code class="fragment">EntityConfiguration</code><br/>
+    <code class="fragment">EntityRegistry</code>
+</section>
