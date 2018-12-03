@@ -33,99 +33,7 @@
             </ol>
         </section>
 
-        <!-- THEORY -->
-        <section>
-            <h2>Wat is EntityModule?</h2>
-            <p class="fragment">Module voor het<br/>
-                automatisch genereren van een uniforme beheersinterface <em class="fragment">(voor bepaalde entities)</em><br/>
-                op basis van metadata <em class="fragment">(van die entities)</em>
-            </p>
-
-            <div class="center">
-                <strong class="fragment">entity</strong><br/>
-                <strong class="fragment">metadata</strong><br/>
-                <strong class="fragment">UI generatie</strong>
-            </div>
-        </section>
-        <section>
-            <h2>Wat is een entity?</h2>
-            <p>
-                An entity is a lightweight persistence domain object. Typically, an entity represents a table in a relational database, and each
-                entity instance corresponds to a row in that table.
-
-                => persistence (CRUD UI)
-            </p>
-        </section>
-        <section>
-            <h2>Wat is een entity?</h2>
-            <p>
-                EntityModule laat toe om eender welk object als een entity te configureren.
-
-                Door te configureren hoe:
-                Een nieuwe instantie aangemaakt kan worden
-                De identiteit van een instantie te bepalen
-                Een bestaande instantie opgehaald kan worden
-                Een instantie te presenteren
-                Een instantie op te slaan of te verwijderen
-
-                = entity metadata
-            </p>
-        </section>
-        <section>
-            <h2>Entity metadata</h2>
-            <table>
-                <tr>
-                    <td>
-                        Entity model
-                        Nieuwe instantie aanmaken
-                        Identiteit bepalen
-                        Instantie ophalen
-                        Opslaan of verwijderen
-
-                        UserRepository.findOne()
-                        UserRepository.save()
-
-                    </td>
-                    <td>
-                        Property metadata
-                        Presentatie
-
-                        User {
-                        String name;
-                        }
-
-                    </td>
-                </tr>
-            </table>
-        </section>
-        <section>
-            <h2>Genereren van een UI</h2>
-            <table>
-                <tr>
-                    <td>
-                        Entity views
-
-                        Eén of meerdere entity instanties.
-
-
-                        ≈ webpagina’s
-
-
-                    </td>
-                    <td>
-                        Property controls
-
-                        Eén of meerdere properties,
-                        van een instantie.
-
-                        ≈ componenten (bvb. form controls)
-                    </td>
-                </tr>
-            </table>
-        </section>
-        <section>
-            TODO: overview image
-        </section>
+        <section data-external-replace="slides/theory-overview.html"></section>
 
         <!-- HANDSON -->
         <section>
@@ -397,8 +305,7 @@
                            width: '100%',
                            height: '100%',
                            margin: 0.1,
-                           minScale: 1,
-                           maxScale: 1,
+
                            dependencies: [
                                { src: '/ax-school/lib/js/classList.js', condition: function() { return !document.body.classList; } },
                                {src: '/ax-school/plugin/markdown/marked.js'},
