@@ -14,11 +14,11 @@
 
     <!-- Printing and PDF exports -->
     <script>
-        var link = document.createElement( 'link' );
+        var link = document.createElement('link');
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = window.location.search.match( /print-pdf/gi ) ? '/ax-school/css/print/pdf.css' : '/ax-school/css/print/paper.css';
-        document.getElementsByTagName( 'head' )[0].appendChild( link );
+        link.href = window.location.search.match(/print-pdf/gi) ? '/ax-school/css/print/pdf.css' : '/ax-school/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
     </script>
 </head>
 <body>
@@ -35,7 +35,6 @@
         <section data-markdown="09.md" data-separator-vertical="^----"></section>
         <section data-markdown="10.md" data-separator-vertical="^----"></section>
         <section data-markdown="11.md" data-separator-vertical="^----"></section>
-        <section data-markdown="12.md" data-separator-vertical="^----"></section>
         <section data-markdown="18.md" data-separator-vertical="^----"></section>
         <section data-markdown="22.md" data-separator-vertical="^----"></section>
     </div>
@@ -48,26 +47,33 @@
     // More info about config & dependencies:
     // - https://github.com/hakimel/reveal.js#configuration
     // - https://github.com/hakimel/reveal.js#dependencies
-    Reveal.initialize( {
-                           dependencies: [
-                               { src: '/ax-school/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-                               {src: '/ax-school/plugin/markdown/marked.js'},
-                               {src: '/ax-school/plugin/markdown/markdown.js'},
-                               {src: '/ax-school/plugin/menu/menu.js'},
-                               {src: '/ax-school/plugin/notes/notes.js', async: true},
-                               {
-                                   src: '/ax-school/plugin/highlight/highlight.js', async: true, callback: function () {
-                                       hljs.initHighlightingOnLoad();
-                                   }
-                               },
-                               {
-                                   src: '/ax-school/plugin/external/external.js',
-                                   condition: function () {
-                                       return !!document.querySelector( '[data-external],[data-external-replace]' );
-                                   }
-                               }
-                           ]
-                       } );
+    Reveal.initialize({
+        width: '100%',
+        height: '100%',
+        margin: 0.1,
+        dependencies: [
+            {
+                src: '/ax-school/lib/js/classList.js', condition: function () {
+                    return !document.body.classList;
+                }
+            },
+            {src: '/ax-school/plugin/markdown/marked.js'},
+            {src: '/ax-school/plugin/markdown/markdown.js'},
+            {src: '/ax-school/plugin/menu/menu.js'},
+            {src: '/ax-school/plugin/notes/notes.js', async: true},
+            {
+                src: '/ax-school/plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            },
+            {
+                src: '/ax-school/plugin/external/external.js',
+                condition: function () {
+                    return !!document.querySelector('[data-external],[data-external-replace]');
+                }
+            }
+        ]
+    });
 </script>
 </body>
 </html>
