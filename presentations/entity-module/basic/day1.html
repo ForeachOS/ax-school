@@ -7,18 +7,18 @@
     <title>Across School</title>
 
     <link rel="stylesheet" href="/ax-school/css/reveal.css">
-    <link rel="stylesheet" href="/ax-school/css/theme/black.css">
+    <link rel="stylesheet" href="/ax-school/css/theme/across.css">
 
     <!-- Theme used for syntax highlighting of code -->
     <link rel="stylesheet" href="/ax-school/lib/css/zenburn.css">
 
     <!-- Printing and PDF exports -->
     <script>
-        var link = document.createElement( 'link' );
+        var link = document.createElement('link');
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = window.location.search.match( /print-pdf/gi ) ? '/ax-school/css/print/pdf.css' : '/ax-school/css/print/paper.css';
-        document.getElementsByTagName( 'head' )[0].appendChild( link );
+        link.href = window.location.search.match(/print-pdf/gi) ? '/ax-school/css/print/pdf.css' : '/ax-school/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
     </script>
 </head>
 <body>
@@ -43,90 +43,126 @@
         </section>
         <section>
             <h2>Across Studio ticket verkoop</h2>
-            https://github.com/ForeachOS/ax-school-entity-module-devs-basic
-
-            Branch: basic-start
-
-            Start:
-            BookingApplication
-            MusicalApiApplication
-
-            Opgepast: working directory = module working directory
+            <p><a target="_blank" href="https://github.com/ForeachOS/ax-school-entity-module-devs-basic">https://github.com/ForeachOS/ax-school-entity-module-devs-basic</a>
+            </p>
+            <p><strong>Branch:</strong> basic-start</p>
+            <ul>
+                <li>
+                    <code>BookingApplication</code></li>
+                <li><code>MusicalApiApplication</code></li>
+            </ul>
+            <p> Opgepast: working directory = module working directory</p>
         </section>
 
         <!-- HANDSON: ex 1 -->
         <section>
             <h2>ViewElement</h2>
-            ViewElement infrastructuur = Across Web
 
-            Een ViewElement is een web component.
-            Meestal HTML output, default rendering via Thymeleaf.
+            <p>ViewElement infrastructuur = Across Web</p>
+            <p>
+                Een ViewElement is een web component.<br/>
+                Meestal HTML output, default rendering via Thymeleaf.
+            </p>
 
-            Basis implementaties:
+            <p>
+                Basis implementaties:<br/>
 
-            TextViewElement
-            NodeViewElement
-            ContainerViewElement
+                <code>TextViewElement</code><br/>
+                <code>NodeViewElement</code><br/>
+                <code>ContainerViewElement</code>
+            </p>
 
-            Uitgebreider:
-            BootstrapUiModule: Bootstrap 3 componenten.
+            Uitgebreider: BootstrapUiModule: Bootstrap 3 componenten.
         </section>
         <section>
             <h2>ViewElementBuilder</h2>
-            Genereert een ViewElement voor een bepaalde ViewElementBuilderContext.
+            <p>Genereert een ViewElement voor een bepaalde ViewElementBuilderContext.</p>
 
-            ViewElementBuilderContext
-            Model om typische attributen door te geven, en vanuit de ViewElementBuilder toegang te geven tot algemene features.
-
-            Builder implementaties: BootstrapUiBuilders
+            <h6>ViewElementBuilderContext</h6>
+            <p>Model om typische attributen door te geven, en vanuit de ViewElementBuilder toegang te geven tot algemene features.</p>
+            <p>Builder implementaties: BootstrapUiBuilders</p>
         </section>
         <section data-markdown="ex/01.md" data-separator-vertical="^----"></section>
 
         <!-- HANDSON: ex 2 -->
         <section>
             <h2>EntityViewElementBuilderService</h2>
-            Genereert een ViewElementBuilder voor een EntityPropertyDescriptor en een ViewElementMode.
+            <p>Genereert een ViewElementBuilder voor een EntityPropertyDescriptor en een ViewElementMode.</p>
 
-            EntityPropertyDescriptor
-            = metadata van één property
+            <p>
+                <strong>EntityPropertyDescriptor</strong><br/>
+                = metadata van één property
+            </p>
 
-            ViewElementMode
-            = “mode” voor dewelke een control gegenereerd moet worden
+            <p>
+                <strong>ViewElementMode</strong><br/>
+                = “mode” voor dewelke een control gegenereerd moet worden
+            </p>
 
-            EntityViewElementBatch
-            Genereren van controls voor een selectie van properties en een ViewElementMode.
-            Aanmaken via de EntityViewElementBuilderHelper.
+            <p>
+                <strong>EntityViewElementBatch</strong><br/>
+                Genereren van controls voor een selectie van properties en een ViewElementMode.<br/>
+                Aanmaken via de EntityViewElementBuilderHelper.
+            </p>
         </section>
         <section>
             <h2>Default ViewElementModes</h2>
-            VALUE:  		Value van de property (bvb John Doe).
-            LABEL:			Label van de property (bvb Username)
-            CONTROL:		Control voor het updaten van de value (bvb een textbox).
-            FORM_READ:		Typisch combinatie van LABEL en VALUE.
-            FORM_WRITE: 		Typisch combinatie van LABEL en CONTROL.
-
-            LIST_LABEL:		Label van de property voor in een tabel overzicht (kolom header)
-            LIST_VALUE:		Value van de property voor in een tabel overzicht (cell value).
-            LIST_CONTROL:		Control voor het inline update van de value in een tabel (niet gebruikt).
-
-            FILTER_CONTROL:	Control voor het selecteren van een value in een filter.
+            <table>
+                <tr>
+                    <th>VALUE</th>
+                    <td>Value van de property (bvb John Doe)</td>
+                </tr>
+                <tr>
+                    <th>LABEL</th>
+                    <td>Label van de property (bvb Username)</td>
+                </tr>
+                <tr>
+                    <th>CONTROL</th>
+                    <td>Control voor het updaten van de value (bvb een textbox).</td>
+                </tr>
+                <tr>
+                    <th>FORM_READ</th>
+                    <td>Typisch combinatie van LABEL en VALUE.</td>
+                </tr>
+                <tr>
+                    <th>FORM_WRITE</th>
+                    <td>Typisch combinatie van LABEL en CONTROL.</td>
+                </tr>
+                <tr>
+                    <th>LIST_LABEL</th>
+                    <td>Label van de property voor in een tabel overzicht (kolom header)</td>
+                </tr>
+                <tr>
+                    <th>LIST_VALUE</th>
+                    <td>Value van de property voor in een tabel overzicht (cell value).</td>
+                </tr>
+                <tr>
+                    <th>LIST_CONTROL</th>
+                    <td>Control voor het inline update van de value in een tabel (niet gebruikt).</td>
+                </tr>
+                <tr>
+                    <th>FILTER_CONTROL</th>
+                    <td>Control voor het selecteren van een value in een filter.</td>
+                </tr>
+            </table>
         </section>
         <section data-markdown="ex/02.md" data-separator-vertical="^----"></section>
 
         <!-- HANDSON: ex 3 -->
         <section>
             <h2>Admin Web en entity views</h2>
-            AdminWebModule actief:
-            Ondersteuning voor CRUD entity views.
+            <h6>AdminWebModule actief</h6>
+            <p>Ondersteuning voor CRUD entity views.</p>
 
-            AdminWebModule + development mode:
-            Developer tools voor metadata browsing.
+            <h6>AdminWebModule + development mode:</h6>
+            <p>Developer tools voor metadata browsing.</p>
         </section>
         <section>
             <h2>Metadata configureren: EntityConfigurer</h2>
-            = component om de geregistreerde entity configuraties aan te passen
+            <p>= component om de geregistreerde entity configuraties aan te passen</p>
 
-            Een module kan meerdere EntityConfigurer beans voorzien.
+            <br/>
+            <p>Een module kan meerdere EntityConfigurer beans voorzien.</p>
             Ze worden automatisch toegepast - in volgorde - na de automatische registratie van entities.
             Meerdere EntityConfigurers kunnen dezelfde onderdelen aanpassen (last one wins).
         </section>
@@ -135,70 +171,77 @@
         <!-- HANDSON: ex 4 -->
         <section>
             <h2>Associaties</h2>
-            Een relatie tussen 2 EntityConfigurations = EntityAssociation
+            <p>Een relatie tussen 2 EntityConfigurations = EntityAssociation</p>
 
-            Heeft een unieke naam.
-            Is een onderdeel van de “source” EntityConfiguration.
-            Net als EntityConfiguration zijn er automatische default views mogelijk.
-
-            Types associaties (default views): LINKED (default), EMBEDDED
+            <br/>
+            <p>Heeft een unieke naam.</p>
+            <p>Is een onderdeel van de “source” EntityConfiguration.
+            <p>Net als EntityConfiguration zijn er automatische default views mogelijk.
+                <br/>
+            <p>Types associaties (default views): LINKED (default), EMBEDDED
         </section>
-        <section data-external-replace="ex/04.md"></section>
+        <section data-markdown="ex/04.md" data-separator-vertical="^----"></section>
 
         <!-- HANDSON: ex 5 -->
         <section>
             <h2>Valideren van entities</h2>
-            Default validatie op views:
-            Spring Hibernate validator (annotation based validation).
-            -> DefaultValidationViewProcessor
+            <p>Default validatie op views:
+                Spring Hibernate validator (annotation based validation). <br/>
+                -> DefaultValidationViewProcessor
+            </p>
+            <h6>Custom validator</h6>
+            <p>Validator.class attribuut op EntityConfiguration
 
-            Custom validator:
-            Validator.class attribuut op EntityConfiguration
-
-            Automatische registratie koppelt custom Validator bean voor een entity type wanneer:
-            De implementatie geldig is voor dat entity type (supports(type) is true)
-            De validator bean in dezelfde Across module zit als die waar de Spring Data repository is
+            <p>Automatische registratie koppelt custom Validator bean voor een entity type wanneer:</p>
+            <ol>
+                <li>De implementatie geldig is voor dat entity type (supports(type) is true)</li>
+                <li>De validator bean in dezelfde Across module zit als die waar de Spring Data repository is</li>
+            </ol>
         </section>
-        <section data-external-replace="ex/05.md"></section>
+        <section data-markdown="ex/05.md" data-separator-vertical="^----"></section>
 
         <!-- HANDSON: ex 6 -->
         <section>
             <h2>Custom properties</h2>
-            Het is mogelijk om een nieuwe property te definiëren als EntityPropertyDescriptor.
+            <p>Het is mogelijk om een nieuwe property te definiëren als EntityPropertyDescriptor.</p>
 
-            Minimale configuratie:
-            Property naam
-            Property type (class of TypeDescriptor)
-            EntityPropertyController
-            valueFetcher implementatie (= ophalen van de value van die property)
+            <p><strong>Minimale configuratie:</strong></p>
+            <ul>
+                <li>Property naam</li>
+                <li>Property type (class of TypeDescriptor)</li>
+                <li>EntityPropertyController<br/>valueFetcher implementatie (= ophalen van de value van die property)</li>
+            </ul>
         </section>
-        <section data-external-replace="ex/06.md"></section>
+        <section data-markdown="ex/06.md" data-separator-vertical="^----"></section>
 
         <!-- HANDSON: ex 7, ex 8 -->
         <section>
             <h2>EntityQuery & EQL</h2>
-            EntityModule gebruikt een abstractie laag voor het ophalen van (zoeken naar) entities.
+            <p>EntityModule gebruikt een abstractie laag voor het ophalen van (zoeken naar) entities.</p>
 
-            EntityQuery
-            Specification-achtig object die een query opdracht bevat.
+            <h6>EntityQuery</h6>
+            <p>Specification-achtig object die een query opdracht bevat.
 
-            EntityQuery Language (EQL)
-            SQL-achtige syntax die omgezet wordt naar een EntityQuery.
-            Voorbeeld: name = ‘John Doe’ order by name ASC
+            <h6>EntityQuery Language (EQL)</h6>
+            <p>SQL-achtige syntax die omgezet wordt naar een EntityQuery.<br/>
+                <code>name = ‘John Doe’ order by name ASC</code></p>
 
-            EntityQueryExecutor
-            Voert een EntityQuery uit.
-            Default implementaties: JPA, QueryDsl, Collection.
+            <h6>EntityQueryExecutor</h6>
+            <p>Voert een EntityQuery uit.<br/>
+                Default implementaties: JPA, QueryDsl, Collection.
+            </p>
         </section>
         <section>
             <h2>EntityQuery & EQL</h2>
-            EQL filtering kan toegepast worden op list views.
+            <p>EQL filtering kan toegepast worden op list views.</p>
 
-            EntityQuery gebruikt de EntityPropertyRegistry metadata.
+            <p>EntityQuery gebruikt de EntityPropertyRegistry metadata.</p>
 
-            EQL ondersteuning kan per entity uitgebreid worden:
-            Custom properties
-            Custom functions
+            <p>EQL ondersteuning kan per entity uitgebreid worden:</p>
+            <ul>
+                <li>Custom properties</li>
+                <li>Custom functions</li>
+            </ul>
         </section>
         <section data-markdown="ex/07.md" data-separator-vertical="^----"></section>
         <section data-markdown="ex/08.md" data-separator-vertical="^----"></section>
@@ -206,80 +249,119 @@
         <!-- HANDSON: ex 9 -->
         <section>
             <h2>Custom & default views</h2>
-            Entity view -> EntityViewFactory
-            Configuratie meestal via de EntityViewFactoryBuilder.
+            <p>Entity view -> EntityViewFactory</p>
+            <p>Configuratie meestal via de EntityViewFactoryBuilder.</p>
 
-            Default views
-            listView
-            detailView
-            createFormView
-            updateFormView
-            deleteFormView
+            <h6>Default views</h6>
+            <ul>
+                <li>listView</li>
+                <li>detailView</li>
+                <li>createFormView</li>
+                <li>updateFormView</li>
+                <li>deleteFormView</li>
+            </ul>
 
-            View templates
-            view (= blanco)
-            formView
-            listView
+            <h6>View templates</h6>
+            <ul>
+                <li>view (= blanco)</li>
+                <li>formView</li>
+                <li>listView</li>
+            </ul>
         </section>
         <section data-markdown="ex/09.md" data-separator-vertical="^----"></section>
 
         <!-- HANDSON: ex 10, ex 11 -->
         <section>
             <h2>Custom properties</h2>
-            2 type properties:
-            Native properties bestaan in Java op de Entity type (name)
-            Extension properties bestaan enkel als EntityPropertyDescriptor (seats)
+            <p>
+                2 type properties:<br/>
+                <strong>Native properties</strong> bestaan in Java op de Entity type (name)<br/>
+                <strong>Extension properties</strong> bestaan enkel als EntityPropertyDescriptor (seats)
+            </p>
+            <p>Values van extension properties kunnen nooit op de entity instance rechtstreeks gezet worden.</p>
 
-            Values van extension properties kunnen nooit op de entity instance rechtstreeks gezet worden.
-
-            EntityPropertiesBinder
-            Tussenliggende, abstracte, datastructuur die een EntityPropertyRegistry gebruikt om property values op te halen voor een entity, of toe te passen op een entity.
-
-            Maakt gebruik van de EntityPropertyController voor al zijn operaties.
+            <h6>EntityPropertiesBinder</h6>
+            <p>
+                Tussenliggende, abstracte, datastructuur die een EntityPropertyRegistry gebruikt om property values op te halen voor een
+                entity,
+                of toe te passen op een entity.
+            </p>
+            <p>Maakt gebruik van de EntityPropertyController voor al zijn operaties.</p>
         </section>
         <section>
             <h2>EntityViewCommand</h2>
-            Het command object voor een entity view formulier:
-            Bevat de DTO van de entity
-            Bevat een EntityPropertiesBinder voor diezelfde DTO
-            Bevat mogelijke uitbreidingen (extensions) om custom form binding op te doen
+            <p>Het command object voor een entity view formulier:</p>
+            <ul>
+                <li>Bevat de DTO van de entity</li>
+                <li>Bevat een EntityPropertiesBinder voor diezelfde DTO</li>
+                <li>Bevat mogelijke uitbreidingen (extensions) om custom form binding op te doen</li>
+            </ul>
+        </section>
+        <section>
+            <h2>Property handling</h2>
+            <p>In een formulier zijn er 3 manieren om een property te verwerken:</p>
+            <table>
+                <tr>
+                    <th>DIRECT</th>
+                    <td>enkel voor native properties, rechtstreeks op de target DTO</td>
+                </tr>
+                <tr>
+                    <th>EXTENSION</th>
+                    <td>via de EntityPropertiesBinder</td>
+                </tr>
+                <tr>
+                    <th>MANUAL</th>
+                    <td>manueel afgehandeld</td>
+                </tr>
+            </table>
 
-            In een formulier zijn er 3 manieren om een property te verwerken:
-            DIRECT: enkel voor native properties, rechtstreeks op de target DTO
-            EXTENSION: via de EntityPropertiesBinder
-            MANUAL: manueel afgehandeld
-
-            Kan per property gezet worden via het EntityPropertyHandlingType.class attribuut.
-            Heeft impact op de gegenereerde control naam voor een form control, en dus op welk data object de value vanuit een formulier gezet wordt.
+            <p>Kan per property gezet worden via het EntityPropertyHandlingType.class attribuut.</p>
+            <p>Heeft impact op de gegenereerde control naam voor een form control,<br/> en dus op welk data object de value vanuit een
+                formulier
+                gezet wordt.
+            </p>
         </section>
         <section>
             <h2>EntityViewCommand binding</h2>
-            EntityViewCommand is het form binding object (cmd)
-            De DTO van de entity instantie is beschikbaar onder EntityViewCommand.getEntity()
-            DIRECT property handling voor “name”:
-            entity.name => cmd.getEntity().setName( x )
-            De EntityPropertiesBinder is beschikbaar onder EntityViewCommand.getProperties()
-            EXTENSION property handling voor “name”:
-            properties[name].value => cmd.getProperties().get(“name”).setValue( x )
-
-            Voordelen EntityPropertiesBinder:
-            Intermedia path creation & initialisatie nieuwe values
-            Collection binding
-            Gebruik van de EntityPropertyController voor alle handelingen
+            <p>EntityViewCommand is het form binding object (cmd)</p>
+            <p>De DTO van de entity instantie is beschikbaar onder EntityViewCommand.getEntity()</p>
+            <p>DIRECT property handling voor “name”:<br/>
+                <code><small>entity.name => cmd.getEntity().setName( x )</small></code>
+            </p>
+            <p>De EntityPropertiesBinder is beschikbaar onder EntityViewCommand.getProperties()</p>
+            <p>EXTENSION property handling voor “name”:<br/>
+                <code><small>properties[name].value => cmd.getProperties().get(“name”).setValue( x )</small></code>
+            </p>
+        </section>
+        <section>
+            <h2>Voordelen EntityPropertiesBinder</h2>
+            <ul>
+                <li>Intermedia path creation & initialisatie nieuwe values</li>
+                <li>Collection binding</li>
+                <li>Gebruik van de EntityPropertyController voor alle handelingen</li>
+            </ul>
         </section>
         <section>
             <h2>EntityPropertyController</h2>
-            Kan gebruikt worden om te werken met de specifieke property value:
+            <p>Kan gebruikt worden om te werken met de specifieke property value:</p>
 
-            fetchValue() = property value ophalen
-            createValue() = nieuwe property value initializeren
-            validate() = valideren van de property value
-            applyValue() = property value toepassen op de entity
-            save() = property value definitief opslaan
-
-            Verschil tussen applyValue() en save():
-            applyValue() = kan meermaals uitgevoerd worden tijdens één request en kan impliciet uitgevoerd worden, normaal voor validatie
-            save() = kan enkel expliciet uitgevoerd worden, meestal na succesvolle validatie
+            <table>
+                <tr>
+                    <td>fetchValue()</td>
+                    <td>property value ophalen</td>
+                </tr>
+                <tr><td>createValue()</td><td>nieuwe property value initializeren</td></tr>
+                <tr><td>validate()</td><td>valideren van de property value</td></tr>
+                <tr><td>applyValue()</td><td>property value toepassen op de entity</td></tr>
+                <tr><td>save()</td><td>property value definitief opslaan</td></tr>
+            </table>
+        </section>
+        <section>
+            <h2>applyValue() vs save()</h2>
+            <h6>applyValue()</h6>
+            <p>kan meermaals uitgevoerd worden tijdens één request en kan impliciet uitgevoerd worden, normaal voor validatie</p>
+            <h6>save()</h6>
+            <p>kan enkel expliciet uitgevoerd worden, meestal na succesvolle validatie</p>
 
             Controller order kan belangrijk zijn voor validate/applyValue/save (voor of na de entity zelf).
         </section>
@@ -290,8 +372,9 @@
         <section>
             <h2>Custom property controls</h2>
         </section>
-        <section data-external-replace="ex/18.html"></section>
-        <section data-external-replace="ex/22.html"></section>    </div>
+        <section data-markdown="ex/18.md" data-separator-vertical="^----"></section>
+        <section data-markdown="ex/22.md" data-separator-vertical="^----"></section>
+    </div>
 </div>
 
 <script src="/ax-school/lib/js/head.min.js"></script>
@@ -301,30 +384,34 @@
     // More info about config & dependencies:
     // - https://github.com/hakimel/reveal.js#configuration
     // - https://github.com/hakimel/reveal.js#dependencies
-    Reveal.initialize( {
-                           width: '100%',
-                           height: '100%',
-                           margin: 0.1,
+    Reveal.initialize({
+        width: '100%',
+        height: '100%',
+        margin: 0.1,
 
-                           dependencies: [
-                               { src: '/ax-school/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-                               {src: '/ax-school/plugin/markdown/marked.js'},
-                               {src: '/ax-school/plugin/markdown/markdown.js'},
-                               {src: '/ax-school/plugin/notes/notes.js', async: true},
-                               {src: '/ax-school/plugin/menu/menu.js'},
-                               {
-                                   src: '/ax-school/plugin/highlight/highlight.js', async: true, callback: function () {
-                                       hljs.initHighlightingOnLoad();
-                                   }
-                               },
-                               {
-                                   src: '/ax-school/plugin/external/external.js',
-                                   condition: function () {
-                                       return !!document.querySelector( '[data-external],[data-external-replace]' );
-                                   }
-                               }
-                           ]
-                       } );
+        dependencies: [
+            {
+                src: '/ax-school/lib/js/classList.js', condition: function () {
+                    return !document.body.classList;
+                }
+            },
+            {src: '/ax-school/plugin/markdown/marked.js'},
+            {src: '/ax-school/plugin/markdown/markdown.js'},
+            {src: '/ax-school/plugin/notes/notes.js', async: true},
+            {src: '/ax-school/plugin/menu/menu.js'},
+            {
+                src: '/ax-school/plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            },
+            {
+                src: '/ax-school/plugin/external/external.js',
+                condition: function () {
+                    return !!document.querySelector('[data-external],[data-external-replace]');
+                }
+            }
+        ]
+    });
 </script>
 </body>
 </html>
