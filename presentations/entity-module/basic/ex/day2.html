@@ -24,21 +24,20 @@
 <body>
 <div class="reveal">
     <div class="slides">
-        <section data-external-replace="11.html"></section>
-        <section data-external-replace="12.html"></section>
-        <section data-external-replace="13.html"></section>
-        <section data-external-replace="14.html"></section>
-        <section data-external-replace="15.html"></section>
-        <section data-external-replace="16.html"></section>
-        <section data-external-replace="17.html"></section>
-        <section data-external-replace="18.html"></section>
-        <section data-external-replace="19.html"></section>
-        <section data-external-replace="20.html"></section>
-        <section data-external-replace="21.html"></section>
-        <section data-external-replace="22.html"></section>
-        <section data-external-replace="23.html"></section>
-        <section data-external-replace="24.html"></section>
-        <section data-external-replace="25.html"></section>
+        <section data-markdown="12.md" data-separator-vertical="^----"></section>
+        <section data-markdown="13.md" data-separator-vertical="^----"></section>
+        <section data-markdown="14.md" data-separator-vertical="^----"></section>
+        <section data-markdown="15.md" data-separator-vertical="^----"></section>
+        <section data-markdown="16.md" data-separator-vertical="^----"></section>
+        <section data-markdown="17.md" data-separator-vertical="^----"></section>
+        <section data-markdown="18.md" data-separator-vertical="^----"></section>
+        <section data-markdown="19.md" data-separator-vertical="^----"></section>
+        <section data-markdown="20.md" data-separator-vertical="^----"></section>
+        <section data-markdown="21.md" data-separator-vertical="^----"></section>
+        <section data-markdown="22.md" data-separator-vertical="^----"></section>
+        <section data-markdown="23.md" data-separator-vertical="^----"></section>
+        <section data-markdown="24.md" data-separator-vertical="^----"></section>
+        <section data-markdown="25.md" data-separator-vertical="^----"></section>
     </div>
 </div>
 
@@ -49,25 +48,33 @@
     // More info about config & dependencies:
     // - https://github.com/hakimel/reveal.js#configuration
     // - https://github.com/hakimel/reveal.js#dependencies
-    Reveal.initialize( {
-                           dependencies: [
-                               {src: '/ax-school/plugin/markdown/marked.js'},
-                               {src: '/ax-school/plugin/markdown/markdown.js'},
-                               {src: '/ax-school/plugin/menu/menu.js'},
-                               {src: '/ax-school/plugin/notes/notes.js', async: true},
-                               {
-                                   src: '/ax-school/plugin/highlight/highlight.js', async: true, callback: function () {
-                                       hljs.initHighlightingOnLoad();
-                                   }
-                               },
-                               {
-                                   src: '/ax-school/plugin/external/external.js',
-                                   condition: function () {
-                                       return !!document.querySelector( '[data-external],[data-external-replace]' );
-                                   }
-                               }
-                           ]
-                       } );
+    Reveal.initialize({
+        width: '100%',
+        height: '100%',
+        margin: 0.1,
+        dependencies: [
+            {
+                src: '/ax-school/lib/js/classList.js', condition: function () {
+                    return !document.body.classList;
+                }
+            },
+            {src: '/ax-school/plugin/markdown/marked.js'},
+            {src: '/ax-school/plugin/markdown/markdown.js'},
+            {src: '/ax-school/plugin/menu/menu.js'},
+            {src: '/ax-school/plugin/notes/notes.js', async: true},
+            {
+                src: '/ax-school/plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            },
+            {
+                src: '/ax-school/plugin/external/external.js',
+                condition: function () {
+                    return !!document.querySelector('[data-external],[data-external-replace]');
+                }
+            }
+        ]
+    });
 </script>
 </body>
 </html>
