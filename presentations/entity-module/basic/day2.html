@@ -1,0 +1,203 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Across School</title>
+
+    <link rel="stylesheet" href="/ax-school/css/reveal.css">
+    <link rel="stylesheet" href="/ax-school/css/theme/across.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="/ax-school/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '/ax-school/css/print/pdf.css' : '/ax-school/css/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>EntityModule Developer Basic</h2>
+            <h3>Day 2</h3>
+            <ol>
+                <li>Custom controls</li>
+                <li>Entity views</li>
+                <li>Permissies</li>
+            </ol>
+        </section>
+
+        <section data-external-replace="slides/theory-overview.html#.building-blocks">
+            <!-- recap -->
+        </section>
+
+        <!-- Custom controls -->
+        <section>
+            <h2>Custom property controls</h2>
+            By default wordt de property type gebruikt om via een ViewElementTypeLookupStrategy een ViewElement type te bepalen.
+
+            Een corresponderende EntityViewElementBuilderFactory genereert dan de ViewElementBuilder.
+
+            Manieren om voor ViewElementMode om de gegenereerde builder te beïnvloeden:
+            Element type opgeven:
+            Automatisch generatie gebeurt nog steeds door de factories. Bepaalt welke factory gebruikt zal worden.
+            ViewElementBuilder configureren:
+            Zowel strategy als factory worden overgeslagen.
+            ViewElementPostProcessor configureren:
+            Wordt toegepast op de initieel bepaalde ViewElementBuilder. Kan gecombineerd worden met andere.
+        </section>
+        <section>
+            <h2>Control specificatie</h2>
+            ViewElement specificaties en gerelateerde attriuten
+            op EntityConfiguration niveau
+            bepalen defaults voor alle properties van dat type entity.
+
+            // Todo: voorbeeld van dropdown omzetten naar radio
+        </section>
+        <section data-markdown="ex/12.md" data-separator-vertical="^----"></section>
+        <section data-markdown="ex/13.md" data-separator-vertical="^----"></section>
+
+        <!-- Entity views -->
+        <section>
+            <h2>Entity views</h2>
+            Web request komt binnen op de GenericEntityViewController
+            Context objecten worden aangemaakt
+            EntityViewContext: bevat de huidige entity en alle metadata er rechtstreeks aan geassocieerd
+            De juiste EntityViewFactory wordt bepaald voor de gevraagde view en EntityViewContext
+            EntityViewRequest: bevat de EntityViewContext , EntityViewCommand, de metadata van de opgevraagde view (factory, naam, attributen) en de web request informatie
+            EntityViewFactory.prepareEntityViewContext() voor customizen
+            Security checks worden gedelegeerd: EntityViewFactory.authorizeRequest()
+            Customization van EntityViewCommand: EntityViewFactory.initializeCommandObject()
+            De response wordt aangemaakt:
+            EntityViewFactory.createView() -> EntityView
+        </section>
+        <section>
+            <h2>EntityViewProcessor</h2>
+            De DefaultEntityViewFactory is samengesteld uit meerdere EntityViewProcessors.
+
+            De EntityViewFactory.createView() wordt opgesplitst in meer fine-grained licefycle methods:
+            preProcess()
+            doControl()
+            preRender()
+            render()
+            postRender()
+            postProcess()
+
+            Render methodes kunnen overgeslagen worden via setting op de EntityView.
+
+            De lifecycle methods worden gegroepeerd per method, voor alle processors in volgorde opgeroepen.
+            // overzicht vd processors?
+            // showProperties() -> welke processor
+            // developer tools toont de processors en hun volgorde
+            // request/context/view
+        </section>
+        <section data-markdown="ex/14.md" data-separator-vertical="^----"></section>
+        <section data-markdown="ex/15.md" data-separator-vertical="^----"></section>
+        <section>
+            <h2>Linken naar entity views</h2>
+        </section>
+        <section data-markdown="ex/16.md" data-separator-vertical="^----"></section>
+        <!-- Form handling? -> EntityViewCommand -->
+        <section data-markdown="ex/17.md" data-separator-vertical="^----"></section>
+        <section>
+            <h2>EntityView</h2>
+            vermelden shouldRender, setRedirectUrl, response entity
+        </section>
+        <section data-markdown="ex/18.md" data-separator-vertical="^----"></section>
+        <section>
+            <h2>Partial rendering</h2>
+        </section>
+        <section data-markdown="ex/19.md" data-separator-vertical="^----"></section>
+
+        <!-- Permissions -->
+        <section>
+            <h2>Permissies</h2>
+            Allowable actions: permissie abstractie laag
+            AllowableAction.READ
+            AllowableAction.CREATE
+            AllowableAction.UPDATE
+            AllowableAction.DELETE
+            AllowableAction.ADMINISTER
+
+            Bepaalt via een EntityConfigurationAllowableActionsBuilder implementatie
+            Voor de groep van alle instanties (bvb CREATE = nieuwe instantie kunnen aanmaken)
+            Voor één enkele instantie
+
+            Default UI generatie (zowel menu, view, processors) gebruiken de AllowableActions om de UI automatisch aan te passen.
+
+        </section>
+        <section data-markdown="ex/20.md" data-separator-vertical="^----"></section>
+
+        <section>
+            <h2>What's next?</h2>
+            <h3>EntityModule advanced</h3>
+
+            Manueel entities configureren (API)
+            EntityModule “uitbreiden”
+            EQL uitbreiden: custom functies
+            Automatisch entities registreren: EntityRegistrar
+            Custom controls
+            Complexe control binding
+            Automatisch koppelen aan property types
+            Automatisch aanmaken van custom views
+            Definiëren van view templates
+            EntityModule uitbreidingen bundelen en verspreiden
+
+        </section>
+        <!--
+        todo: move to advanced
+        <section data-markdown="21.md" data-separator-vertical="^----"></section>
+        <section data-markdown="22.md" data-separator-vertical="^----"></section>
+        <section data-markdown="23.md" data-separator-vertical="^----"></section>
+        <section data-markdown="24.md" data-separator-vertical="^----"></section>
+        <section data-markdown="25.md" data-separator-vertical="^----"></section>
+        -->
+    </div>
+</div>
+
+<script src="/ax-school/lib/js/head.min.js"></script>
+<script src="/ax-school/js/reveal.js"></script>
+
+<script>
+    // More info about config & dependencies:
+    // - https://github.com/hakimel/reveal.js#configuration
+    // - https://github.com/hakimel/reveal.js#dependencies
+    Reveal.initialize({
+        width: 1280,
+        height: 1024,
+        margin: 0.1,
+        minScale: 0.2,
+        maxScale: 1.5,
+        dependencies: [
+            {
+                src: '/ax-school/lib/js/classList.js', condition: function () {
+                    return !document.body.classList;
+                }
+            },
+            {src: '/ax-school/plugin/markdown/marked.js'},
+            {src: '/ax-school/plugin/markdown/markdown.js'},
+            {src: '/ax-school/plugin/menu/menu.js'},
+            {src: '/ax-school/plugin/notes/notes.js', async: true},
+            {
+                src: '/ax-school/plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            },
+            {
+                src: '/ax-school/plugin/external/external.js',
+                condition: function () {
+                    return !!document.querySelector('[data-external],[data-external-replace]');
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
