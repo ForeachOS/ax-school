@@ -14,11 +14,11 @@
 
     <!-- Printing and PDF exports -->
     <script>
-        var link = document.createElement( 'link' );
+        var link = document.createElement('link');
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = window.location.search.match( /print-pdf/gi ) ? '/ax-school/css/print/pdf.css' : '/ax-school/css/print/paper.css';
-        document.getElementsByTagName( 'head' )[0].appendChild( link );
+        link.href = window.location.search.match(/print-pdf/gi) ? '/ax-school/css/print/pdf.css' : '/ax-school/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
     </script>
 </head>
 <body>
@@ -38,9 +38,46 @@
             <!-- recap -->
         </section>
 
+        <section>
+            <h2>Source code</h2>
+            <p><a target="_blank" href="https://github.com/ForeachOS/ax-school-entity-module-devs-basic">https://github.com/ForeachOS/ax-school-entity-module-devs-basic</a>
+            </p>
+            <p><strong>Branch:</strong> basic-day2</p>
+        </section>
+
         <!-- Custom controls -->
         <section>
-            <h2>Custom property controls</h2>
+            <h2>Property control resolving</h2>
+            <p class="fragment">
+                <code>EntityPropertyDescriptor</code><span class="fragment"><br/>+<br/><code>ViewElementMode</code></span></p>
+            <p class="fragment">&darr;<br/><code>ViewElementBuilder</code><br />
+            <small><code>EntityViewElementBuilderService.createElementBuilder( descriptor, viewElementMode )</code></small></p>
+            <p class="fragment">&darr;<br/><code>ViewElement</code></p>
+            <p class="fragment">= property control</p>
+        </section>
+        <section>
+            <h2>ViewElementType resolving</h2>
+            <p class="fragment">
+                <code>EntityPropertyDescriptor</code> + <code>ViewElementMode</code></p>
+            <p class="fragment">&darr;<br/>ViewElementType (<code>String</code>)<br />
+                <small><code>ViewElementTypeLookupStrategy.findElementType( descriptor, viewElementMode )</code></small></p>
+            <p class="fragment">&darr;<br/><code>EntityViewElementBuilderFactory</code></p>
+            <p class="fragment">&darr;<br/><code>ViewElementBuilder</code><br />
+                <small><code>EntityViewElementBuilderFactory.createBuilder( descriptor, viewElementMode, viewElementType )</code></small>
+            </p>
+        </section>
+        <section>
+            <h2>ViewElement post-processing</h2>
+            <p class="fragment"><code>ViewElementBuilder</code></p>
+            <p class="fragment">&darr;<br/><code>ViewElementPostProcessor</code><br/>
+            <small><code>void postProcess( ViewElementBuilderContext builderContext, T element );</code></small></p>
+            <p class="fragment">&darr;<br/><code>ViewElement</code></p>
+        </section>
+        <section>
+            ViewElement
+            = property control
+
+
             By default wordt de property type gebruikt om via een ViewElementTypeLookupStrategy een ViewElement type te bepalen.
 
             Een corresponderende EntityViewElementBuilderFactory genereert dan de ViewElementBuilder.
@@ -61,6 +98,7 @@
 
             // Todo: voorbeeld van dropdown omzetten naar radio
         </section>
+
         <section data-markdown="ex/12.md" data-separator-vertical="^----"></section>
         <section data-markdown="ex/13.md" data-separator-vertical="^----"></section>
 
@@ -71,7 +109,8 @@
             Context objecten worden aangemaakt
             EntityViewContext: bevat de huidige entity en alle metadata er rechtstreeks aan geassocieerd
             De juiste EntityViewFactory wordt bepaald voor de gevraagde view en EntityViewContext
-            EntityViewRequest: bevat de EntityViewContext , EntityViewCommand, de metadata van de opgevraagde view (factory, naam, attributen) en de web request informatie
+            EntityViewRequest: bevat de EntityViewContext , EntityViewCommand, de metadata van de opgevraagde view (factory, naam,
+            attributen) en de web request informatie
             EntityViewFactory.prepareEntityViewContext() voor customizen
             Security checks worden gedelegeerd: EntityViewFactory.authorizeRequest()
             Customization van EntityViewCommand: EntityViewFactory.initializeCommandObject()
