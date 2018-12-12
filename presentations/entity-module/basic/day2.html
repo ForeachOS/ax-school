@@ -50,8 +50,9 @@
             <h2>Property control resolving</h2>
             <p class="fragment">
                 <code>EntityPropertyDescriptor</code><span class="fragment"><br/>+<br/><code>ViewElementMode</code></span></p>
-            <p class="fragment">&darr;<br/><code>ViewElementBuilder</code><br />
-            <small><code>EntityViewElementBuilderService.createElementBuilder( descriptor, viewElementMode )</code></small></p>
+            <p class="fragment">&darr;<br/><code>ViewElementBuilder</code><br/>
+                <small><code>EntityViewElementBuilderService.createElementBuilder( descriptor, viewElementMode )</code></small>
+            </p>
             <p class="fragment">&darr;<br/><code>ViewElement</code></p>
             <p class="fragment">= property control</p>
         </section>
@@ -59,10 +60,11 @@
             <h2>ViewElementType resolving</h2>
             <p class="fragment">
                 <code>EntityPropertyDescriptor</code> + <code>ViewElementMode</code></p>
-            <p class="fragment">&darr;<br/>ViewElementType (<code>String</code>)<br />
-                <small><code>ViewElementTypeLookupStrategy.findElementType( descriptor, viewElementMode )</code></small></p>
+            <p class="fragment">&darr;<br/>ViewElementType (<code>String</code>)<br/>
+                <small><code>ViewElementTypeLookupStrategy.findElementType( descriptor, viewElementMode )</code></small>
+            </p>
             <p class="fragment">&darr;<br/><code>EntityViewElementBuilderFactory</code></p>
-            <p class="fragment">&darr;<br/><code>ViewElementBuilder</code><br />
+            <p class="fragment">&darr;<br/><code>ViewElementBuilder</code><br/>
                 <small><code>EntityViewElementBuilderFactory.createBuilder( descriptor, viewElementMode, viewElementType )</code></small>
             </p>
         </section>
@@ -70,33 +72,68 @@
             <h2>ViewElement post-processing</h2>
             <p class="fragment"><code>ViewElementBuilder</code></p>
             <p class="fragment">&darr;<br/><code>ViewElementPostProcessor</code><br/>
-            <small><code>void postProcess( ViewElementBuilderContext builderContext, T element );</code></small></p>
+                <small><code>void postProcess( ViewElementBuilderContext builderContext, T element );</code></small>
+            </p>
             <p class="fragment">&darr;<br/><code>ViewElement</code></p>
         </section>
         <section>
-            ViewElement
-            = property control
-
-
-            By default wordt de property type gebruikt om via een ViewElementTypeLookupStrategy een ViewElement type te bepalen.
-
-            Een corresponderende EntityViewElementBuilderFactory genereert dan de ViewElementBuilder.
-
-            Manieren om voor ViewElementMode om de gegenereerde builder te beïnvloeden:
-            Element type opgeven:
-            Automatisch generatie gebeurt nog steeds door de factories. Bepaalt welke factory gebruikt zal worden.
-            ViewElementBuilder configureren:
-            Zowel strategy als factory worden overgeslagen.
-            ViewElementPostProcessor configureren:
-            Wordt toegepast op de initieel bepaalde ViewElementBuilder. Kan gecombineerd worden met andere.
+            <h2>Configureren van property controls: hoe?</h2>
+            <ol>
+                <li class="fragment">
+                    <code>ViewElement</code> type configureren
+                    <ul class="fragment">
+                        <li>bepaalt de <code>EntityViewElementBuilderFactory</code></li>
+                        <li>slaat <code>ViewElementLookupStrategy</code> over</li>
+                    </ul>
+                </li>
+                <li class="fragment">
+                    <code>ViewElementBuilder</code> configureren
+                    <ul class="fragment">
+                        <li>bepaalt de <code>ViewElementBuilder</code></li>
+                        <li>slaat strategy en factory over</li>
+                    </ul>
+                </li>
+                <li class="fragment">
+                    <code>ViewElementPostProcessor</code> toevoegen
+                    <ul class="fragment">
+                        <li>past generereerde control aan</li>
+                        <li>meerdere mogelijk</li>
+                        <li>combineerbaar met andere 1 en 2</li>
+                    </ul>
+                </li>
+            </ol>
         </section>
         <section>
-            <h2>Control specificatie</h2>
-            ViewElement specificaties en gerelateerde attriuten
-            op EntityConfiguration niveau
-            bepalen defaults voor alle properties van dat type entity.
+            <h2>Configureren van property controls: waar?</h2>
 
-            // Todo: voorbeeld van dropdown omzetten naar radio
+            <ol>
+                <li class="fragment">
+                    op individuele property
+                    <p class="fragment">Past enkel die property control aan, al dan niet in context van een specifieke view.</p>
+                </li>
+                <li class="fragment">
+                    op <code>EntityConfiguration</code>
+                    <p class="fragment">Bepaalt de default voor alle properties van dat type.</p>
+                </li>
+            </ol>
+        </section>
+        <section>
+            <h2>Bouwen van controls</h2>
+            <p class="fragment"><strong>Voor het definiëren van een <code>ViewElementBuilder</code></strong>:<br/>
+                <code>EntityViewElementBuilderFactory</code> gebruikt <code>EntityPropertyDescriptor</code> en attributes.<br/>
+                <code class="fragment"><br/>
+                    <small>property("amount").attribute( Currency.class, Currency.getInstance("USD") )</small>
+                </code>
+            </p>
+            <p class="fragment">
+                <strong>Binnen een <code>ViewElementBuilder</code></strong>:<br/>
+                Contextuele data via de <code>ViewElementBuilderContext</code>.<br/>
+                <code class="fragment"><br/>
+                    <small>viewElementBuilderContext.getAttribute( WebResourceRegistry.class );<br/>
+                        EntityViewElementUtils.currentEntity( viewElementBuilderContext );
+                    </small>
+                </code>
+            </p>
         </section>
 
         <section data-markdown="ex/12.md" data-separator-vertical="^----"></section>
@@ -105,29 +142,106 @@
         <!-- Entity views -->
         <section>
             <h2>Entity views</h2>
-            Web request komt binnen op de GenericEntityViewController
+
+            <p class="fragment">
+                entity view ≈ "web pagina" in Admin Web
+            </p>
+
+            <ul>
+                <li class="fragment">geregistreerd op de <code>EntityConfiguration</code><br/>
+                    (en <code>EntityAssociation</code>)
+                </li>
+                <li class="fragment">heeft een unieke naam binnen de context van een entity</li>
+                <li class="fragment">geïmplementeerd als <code>EntityViewFactory</code></li>
+                <li class="fragment">aangemaakt via <code>GenericEntityViewController</code></li>
+            </ul>
+            <!--
+            EntityViewFactory
+
+
             Context objecten worden aangemaakt
-            EntityViewContext: bevat de huidige entity en alle metadata er rechtstreeks aan geassocieerd
+            EntityViewContext:
             De juiste EntityViewFactory wordt bepaald voor de gevraagde view en EntityViewContext
-            EntityViewRequest: bevat de EntityViewContext , EntityViewCommand, de metadata van de opgevraagde view (factory, naam,
-            attributen) en de web request informatie
+            EntityViewRequest:
             EntityViewFactory.prepareEntityViewContext() voor customizen
-            Security checks worden gedelegeerd: EntityViewFactory.authorizeRequest()
+            :
             Customization van EntityViewCommand: EntityViewFactory.initializeCommandObject()
             De response wordt aangemaakt:
             EntityViewFactory.createView() -> EntityView
+            -->
         </section>
         <section>
-            <h2>EntityViewProcessor</h2>
-            De DefaultEntityViewFactory is samengesteld uit meerdere EntityViewProcessors.
+            <h2>Entity view lifecycle</h2>
+            <ol>
+                <li class="fragment">
+                    Web request in <code>GenericEntityViewController</code>
+                </li>
+                <li class="fragment">
+                    Context objecten worden aangemaakt:<br/>
+                    <small>
+                        <ul>
+                            <li><code>EntityViewContext</code></li>
+                            <li><code>EntityViewFactory</code></li>
+                            <li><code>EntityViewCommand</code></li>
+                            <li><code>EntityViewRequest</code></li>
+                        </ul>
+                    </small>
+                </li>
+                <li class="fragment">
+                    Mogelijkheid tot aanpassen van de context<br/>
+                    <small><code>EntityViewFactory.prepareEntityViewContext()</code></small>
+                </li>
+                <li class="fragment">
+                    Security checks worden gedelegeerd<br/>
+                    <small><code>EntityViewFactory.authorizeRequest()</code></small>
+                </li>
+                <li class="fragment">
+                    Mogelijkheid tot configureren <code>EntityViewCommand</code><br/>
+                    <small><code>EntityViewFactory.initializeCommandObject()</code></small>
+                </li>
+                <li class="fragment">
+                    Response (<code>EntityView</code>) wordt aangemaakt<br/>
+                    <small><code>EntityViewFactory.createView()</code></small>
+                </li>
+            </ol>
+        </section>
+        <section>
+            <h2>EntityViewContext</h2>
+            <p>Bevat de huidige entity en geassocieerde metadata.
+                <p><code>EntityConfiguration</code>, <code>EntityPropertyRegistry</code>, <code>EntityAssociation</code> ...</p>
+        </section>
+        <section>
+            <h2>EntityViewCommand</h2>
+            <p>Bevat het request data binding object,<br/> gebruikt door Spring <code>DataBinder</code>.</p>
+            <p>Meestal de entity DTO en equivalente <code>EntityPropertiesBinder</code>.</p>
+        </section>
+        <section>
+            <h2>EntityViewRequest</h2>
+            <p>
+                Bevat de <code>EntityViewContext</code>, <code>EntityViewCommand</code>, de metadata van de opgevraagde view (factory, naam,
+                attributen) en de web request informatie.
+            </p>
+        </section>
+        <section>
+            <h2>DefaultEntityViewFactory</h2>
+            <p class="fragment">
+                = default implementatie van <code>EntityViewFactory</code>
+            </p>
+            <p class="fragment">Opgebouwd uit meerdere <code>EntityViewProcessors</code>.</p>
+
+            <p class="fragment">
+                <code>EntityViewProcessors</code> worden <strong>in volgorde</strong> aangeroepen.
+            </p>
+            <p class="fragment">Configureerbaar via de builders:</p>
+            <ul class="fragment">
+                <li>short-hand configuratie voor default processors</li>
+                <li>view processors toevoegen/verwijderen</li>
+                <li>order zetten op één view processor</li>
+            </ul>
+
+            <!--
 
             De EntityViewFactory.createView() wordt opgesplitst in meer fine-grained licefycle methods:
-            preProcess()
-            doControl()
-            preRender()
-            render()
-            postRender()
-            postProcess()
 
             Render methodes kunnen overgeslagen worden via setting op de EntityView.
 
@@ -136,6 +250,49 @@
             // showProperties() -> welke processor
             // developer tools toont de processors en hun volgorde
             // request/context/view
+            -->
+        </section>
+        <section>
+            <h2>EntityViewProcessor</h2>
+            <table>
+                <tr>
+                    <th>EntityViewFactory</th>
+                    <td>EntityViewProcessor</td>
+                </tr>
+                <tr>
+                    <td><code><small>prepareEntityViewContext</small></code></td>
+                    <td><code><small>prepareEntityViewContext</small></code></td>
+                </tr>
+                <tr>
+                    <td><code><small>authorizeRequest</small></code></td>
+                    <td><code><small>authorizeRequest</small></code></td>
+                </tr>
+                <tr>
+                    <td><code><small>initializeCommandObject</small></code></td>
+                    <td><code><small>initializeCommandObject</small></code></td>
+                </tr>
+                <tr>
+                    <td rowspan="6"><code><small>createView()</small></code></td>
+                    <td><code><small>preProcess()</small></code></td>
+                </tr>
+                <tr><td><code><small>doControl()</small></code></td></tr>
+                <tr><td><code><small>preRender()</small></code></td></tr>
+                <tr><td><code><small>render()</small></code></td></tr>
+                <tr><td><code><small>postRender()</small></code></td></tr>
+                <tr><td><code><small>postProcess()</small></code></td></tr>
+                <tr><td></td></tr>
+            </table>
+        </section>
+        <section>
+            <h2>EntityViewProcessor: praktisch</h2>
+            <ul>
+                <li>Developer tools toont geregistreerde processors en hun volgorde</li>
+                <li>vertrek van <code>EntityViewProcessorAdapter</code>
+                <p>
+                    = meer fine-grained methodes, setup voor default view mbt <code>ViewElementBuilder</code>
+                </p></li>
+                <li>Documentatie: <a href="https://across-docs.foreach.be/across-site/production/entity-module/3.2.0/services-and-components/default-entityviewprocessors.html">overzicht standaard processors</a></li>
+            </ul>
         </section>
         <section data-markdown="ex/14.md" data-separator-vertical="^----"></section>
         <section data-markdown="ex/15.md" data-separator-vertical="^----"></section>
@@ -147,7 +304,9 @@
         <section data-markdown="ex/17.md" data-separator-vertical="^----"></section>
         <section>
             <h2>EntityView</h2>
+            <!--
             vermelden shouldRender, setRedirectUrl, response entity
+            -->
         </section>
         <section data-markdown="ex/18.md" data-separator-vertical="^----"></section>
         <section>
@@ -158,37 +317,82 @@
         <!-- Permissions -->
         <section>
             <h2>Permissies</h2>
-            Allowable actions: permissie abstractie laag
-            AllowableAction.READ
-            AllowableAction.CREATE
-            AllowableAction.UPDATE
-            AllowableAction.DELETE
-            AllowableAction.ADMINISTER
+            <p class="fragment">
+                Allowable actions = permissie abstractie laag
+            </p>
 
-            Bepaalt via een EntityConfigurationAllowableActionsBuilder implementatie
-            Voor de groep van alle instanties (bvb CREATE = nieuwe instantie kunnen aanmaken)
-            Voor één enkele instantie
+            <p class="fragment">
+                <code>AllowableAction.READ</code><br/>
+                <code>AllowableAction.CREATE</code><br/>
+                <code>AllowableAction.UPDATE</code><br/>
+                <code>AllowableAction.DELETE</code><br/>
+                <code>AllowableAction.ADMINISTER</code><br/>
+            </p>
+        </section>
+        <section>
+            <h2>AllowableAction resolving</h2>
+            <p class="fragment">
+                verzameling van <code>AllowableActions</code> wordt opgehaald<br/>
+                via de <code>EntityConfigurationAllowableActionsBuilder</code><br/>
+                gekoppeld aan de <code>EntityConfiguration</code></p>
+            <ul>
+                <li class="fragment">voor alle instanties van die entity (<em>all</em>):<br/>
+                    <small><code>AllowableActions getAllowableActions( EntityConfiguration<?> )</code></small>
 
-            Default UI generatie (zowel menu, view, processors) gebruiken de AllowableActions om de UI automatisch aan te passen.
+                    <p class="fragment">Bvb: <code>CREATE</code> = nieuwe instantie kunnen aanmaken</p>
 
+                </li>
+                <li class="fragment">voor één enkele instantie (<em>instance</em>):<br/>
+                    <small><code>AllowableActions getAllowableActions( EntityConfiguration<?>, Object )</code></small>
+                </li>
+            </ul>
+        </section>
+        <section>
+            <h2>Default AllowableAction mapping</h2>
+            <table>
+                <tr class="fragment" data-fragment-index="1">
+                    <td rowspan="2"><code>READ</code></td>
+                    <td><em>all</em></td>
+                    <td>menu item en overzicht tonen</td>
+                </tr>
+                <tr class="fragment" data-fragment-index="1">
+                    <td><em>instance</em></td>
+                    <td>entity bekijken (detail view), tonen in overzicht</td>
+                </tr>
+                <tr class="fragment">
+                    <td><code>CREATE</code></td>
+                    <td><em>all</em></td>
+                    <td>knop voor aanmaken, create formulier</td>
+                </tr>
+                <tr class="fragment">
+                    <td><code>UPDATE</code></td>
+                    <td><em>instance</em></td>
+                    <td>knop voor aanpassen, update formulier</td>
+                </tr>
+                <tr class="fragment">
+                    <td><code>DELETE</code></td>
+                    <td><em>instance</em></td>
+                    <td>knop voor verwijderen, delete formulier</td>
+                </tr>
+            </table>
+            <p class="fragment">
+                Default view processor die permissies controleert:<br/>
+                <code>ActionAllowedAuthorizationViewProcessor</code>
+            </p>
         </section>
         <section data-markdown="ex/20.md" data-separator-vertical="^----"></section>
 
         <section>
             <h2>What's next?</h2>
             <h3>EntityModule advanced</h3>
-
-            Manueel entities configureren (API)
-            EntityModule “uitbreiden”
-            EQL uitbreiden: custom functies
-            Automatisch entities registreren: EntityRegistrar
-            Custom controls
-            Complexe control binding
-            Automatisch koppelen aan property types
-            Automatisch aanmaken van custom views
-            Definiëren van view templates
-            EntityModule uitbreidingen bundelen en verspreiden
-
+            <ul>
+                <li>Manueel entities configureren (API)</li>
+                <li>Automatisch entities registreren: <code>EntityRegistrar</code></li>
+                <li>Automatisch registreren van controls en custom views</li>
+                <li>EQL uitbreiden: custom functies</li>
+                <li>Complexe form control binding</li>
+                <li>EntityModule uitbreidingen bundelen en verspreiden</li>
+            </ul>
         </section>
         <!--
         todo: move to advanced
